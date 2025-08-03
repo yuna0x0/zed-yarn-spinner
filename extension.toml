@@ -3,7 +3,7 @@ name = "Yarn Spinner"
 version = "0.0.1"
 schema_version = 1
 authors = ["yuna0x0 <yuna@yuna0x0.com>"]
-description = "Yarn Spinner language server support for Zed"
+description = "Yarn Spinner language support for Zed"
 repository = "https://github.com/yuna0x0/zed-yarn-spinner"
 
 [grammars.yarn_spinner]
