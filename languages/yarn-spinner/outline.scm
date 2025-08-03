@@ -3,7 +3,16 @@
 
 ; Capture the node title for the outline name
 (title_header
-  (identifier) @name) @annotation
+  title: (identifier) @name) @annotation
 
 ; Treat the entire node as an outline item, using the closest title_header @name
 (node) @item
+
+; Also capture when headers for conditional nodes
+(when_header
+  expr: (expression) @name) @annotation
+
+; Capture other headers as context
+(header
+  key: (identifier) @name
+  value: (rest_of_line)? @context) @annotation

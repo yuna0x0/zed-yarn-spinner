@@ -8,20 +8,19 @@
 ; - Indenting content within command delimiters and parenthesized expressions
 
 ; 1) Indent between body delimiters: after --- until ===
-; Indent the entire body region.
-; (body
-;   (_) @indent)
-
-; When we reach the body_end (===), reduce indentation.
-(body_end) @end
+; Indent the content within nodes after the body_start marker
+(node
+  (body_start)
+  ; (statement)* @indent
+  (body_end) @end)
 
 ; 2) Parentheses in expressions
 (paren_expression
   "(" @indent
   ")" @end)
 
-; Calls behave similarly to parentheses
-(call_expression
+; Function calls behave similarly to parentheses
+(function_call
   "(" @indent
   ")" @end)
 
@@ -31,19 +30,42 @@
 (command_start) @indent
 (command_end) @end
 
-; 4) Shortcut options and line groups
-; Indent the line that follows an arrow as a continuation.
+; 4) If statement blocks
+(if_clause
+  (command_end)
+  (statement)* @indent)
+
+(else_if_clause
+  (command_end)
+  (statement)* @indent)
+
+(else_clause
+  (command_end)
+  (statement)* @indent)
+
+; 5) Shortcut options and line groups
+; Indent the content that follows an arrow as a continuation.
 (shortcut_option
   (shortcut_arrow)
-  (_) @indent)
+  (line_statement)
+  (indent)? @indent
+  (dedent)? @end)
 
 (line_group_item
   (line_group_arrow)
-  (_) @indent)
+  (line_statement)
+  (indent)? @indent
+  (dedent)? @end)
 
-; 5) General: if a line has an inline expression with braces,
+; 6) General: if a line has an inline expression with braces,
 ; do not change indentation globally, but ensure braces are treated as pairs.
 ; Note: actual matching handled in brackets.scm; here we treat multiline
 ; expressions as indent scopes if authors choose to line-break within them.
 (expression_start) @indent
 (expression_end) @end
+
+; 7) Handle indented statement blocks
+(statement
+  (indent)
+  (statement)* @indent
+  (dedent) @end)

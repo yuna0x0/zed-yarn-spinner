@@ -42,6 +42,20 @@
 (command_end) @punctuation.special
 (command_text_chunk) @preproc
 
+; Command keywords
+(command_if_kw) @keyword
+(command_once_kw) @keyword
+(command_endif_kw) @keyword
+(command_elseif_kw) @keyword
+(command_else_kw) @keyword
+(command_set_kw) @keyword
+(command_call_kw) @keyword
+(command_declare_kw) @keyword
+(command_jump_kw) @keyword
+(command_detour_kw) @keyword
+(command_return_kw) @keyword
+(as_kw) @keyword
+
 ; Inline expressions
 (expression_start) @punctuation.bracket
 (expression_end) @punctuation.bracket
@@ -61,21 +75,27 @@
 ; Numbers and strings
 (number) @number
 (string) @string
-; Provide escapes within strings if grammar exposes them as plain content
-; (string_escape) @string.escape
+
+; Boolean and null literals
+(keyword_true) @boolean
+(keyword_false) @boolean
+(keyword_null) @constant
 
 ; Expressions and operators
-; (binary_expression
-;   (operator) @operator)
+(binary_expression
+  operator: (_) @operator)
 
-; (unary_expression
-;   (operator) @operator)
+(unary_expression
+  operator: (_) @operator)
+
+(set_statement
+  operator: (_) @operator)
 
 (paren_expression
   "(" @punctuation.bracket
   ")" @punctuation.bracket)
 
-(call_expression
+(function_call
   function: (identifier) @function
   "(" @punctuation.bracket
   "," @punctuation.delimiter
@@ -86,9 +106,7 @@
   "." @punctuation.delimiter
   member: (identifier) @property)
 
-; Line conditions using command keywords
-(command_if_kw) @keyword
-(command_once_kw) @keyword
+; Expression keywords
 (kw_not) @keyword
 (kw_and) @keyword
 (kw_or) @keyword
@@ -100,6 +118,3 @@
 (kw_gt) @keyword
 (kw_lte) @keyword
 (kw_gte) @keyword
-
-; Newlines are tokens; no highlight necessary, but capture for completeness
-; (newline)

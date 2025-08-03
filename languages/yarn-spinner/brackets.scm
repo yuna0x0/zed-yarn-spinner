@@ -1,11 +1,12 @@
 ; Bracket matching for Yarn Spinner (tree-sitter yarn_spinner)
+
 ; Match parentheses in expressions
 (paren_expression
   "(" @open
   ")" @close)
 
-; Function call parentheses and commas
-(call_expression
+; Function call parentheses
+(function_call
   "(" @open
   ")" @close)
 
@@ -14,7 +15,9 @@
 (expression_end) @close
 
 ; Double-quoted strings as paired quotes
-; ("\"" @open "\"" @close)
+; (string
+;   "\"" @open
+;   "\"" @close)
 
 ; Command delimiters << ... >>
 (command_start) @open
