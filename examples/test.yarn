@@ -45,9 +45,9 @@ NPC: Excellent! Here's what I need you to do...
 
 // Enum example for quest types
 <<enum QuestType>>
-    case Kill
-    case Collect
-    case Deliver
+    <<case Kill>>
+    <<case Collect>>
+    <<case Deliver>>
 <<endenum>>
 
 <<set $current_quest = QuestType.Collect>>
