@@ -8,7 +8,7 @@ repository = "https://github.com/yuna0x0/zed-yarn-spinner"
 
 [grammars.yarn_spinner]
 repository = "https://github.com/yuna0x0/tree-sitter-yarn-spinner"
-rev = "6d893a9bf3638abc167a1464d37c57d939adc8ac"
+rev = "395ad9aa0c3a9bb63b4dd46a967115495f488831"
 
 # [language_servers.yarn-spinner-lsp]
 # name = "Yarn Spinner LSP"
