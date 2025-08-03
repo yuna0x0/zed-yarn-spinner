@@ -1,0 +1,134 @@
+title: Start
+tags:
+colorID: 0
+position: -267,181
+---
+Mae: Oh! You snuck up on me.
+Mae: Don't you know it's rude to sneak up on people?
+-> Sorry about that.
+    Mae: Well, just don't do it again.
+    Mae: I'm Mae, by the way. What's your name?
+    <<jump GetPlayerName>>
+-> I wasn't sneaking.
+    Mae: Well it felt like sneaking to me.
+    Mae: Anyway, I'm Mae. What's your name?
+    <<jump GetPlayerName>>
+-> ...
+    Mae: Not much of a talker, huh?
+    Mae: That's okay. I'm Mae.
+    Mae: I don't suppose you'd like to tell me your name?
+    <<jump GetPlayerName>>
+===
+
+title: GetPlayerName
+tags:
+colorID: 1
+position: 1,181
+---
+Player: I'm {$player_name}.
+Mae: Nice to meet you, {$player_name}!
+Mae: What brings you to this part of town?
+
+<<if $first_time_here is true>>
+    -> I'm new around here.
+        Mae: Oh, a newcomer! Welcome to our little town.
+        Mae: It's not much, but we like it here.
+        <<set $first_time_here to false>>
+        <<jump ShowAroundOffer>>
+    -> I'm just passing through.
+        Mae: Ah, a traveler! We don't get many of those.
+        Mae: Well, you're welcome to stay as long as you like.
+        <<jump ShowAroundOffer>>
+<<else>>
+    -> I'm looking for someone.
+        Mae: Oh? Who are you looking for?
+        Mae: I know pretty much everyone in town.
+        <<jump LookingForSomeone>>
+    -> Just wandering around.
+        Mae: Fair enough! It's a nice day for a walk.
+        <<jump Goodbye>>
+<<endif>>
+===
+
+title: ShowAroundOffer
+tags:
+colorID: 2
+position: 269,181
+---
+Mae: Say, would you like me to show you around?
+Mae: I know all the best spots in town.
+
+-> That would be great!
+    Mae: Wonderful! Let's start with the market square.
+    Mae: Follow me!
+    <<jump TourStart>>
+-> Maybe another time.
+    Mae: Sure thing! Just find me if you change your mind.
+    Mae: I'm usually around here most days.
+    <<jump Goodbye>>
+-> I prefer to explore on my own.
+    Mae: I understand. Some people like to discover things themselves.
+    Mae: Well, if you need any directions, just ask!
+    <<jump Goodbye>>
+===
+
+title: LookingForSomeone
+tags:
+colorID: 3
+position: 537,181
+---
+Mae: Who are you looking for?
+
+-> An old friend named Sam.
+    Mae: Sam? Oh, you must mean Sam the blacksmith!
+    Mae: His shop is just down the street, past the bakery.
+    Mae: You can't miss it - just listen for the hammering.
+    <<jump Goodbye>>
+-> A merchant named Elena.
+    Mae: Elena... Elena... Oh yes! She runs the general store.
+    Mae: It's the big building with the blue awning on Main Street.
+    Mae: She should be there until sundown.
+    <<jump Goodbye>>
+-> Actually, never mind.
+    Mae: Okay, no problem!
+    Mae: If you remember later, feel free to ask.
+    <<jump Goodbye>>
+===
+
+title: TourStart
+tags:
+colorID: 4
+position: 805,181
+---
+Mae: Here we are at the market square!
+Mae: This is where everyone comes to trade and catch up on gossip.
+Mae: See that fountain in the center? It's been here for over a hundred years.
+
+<<set $has_toured_town to true>>
+
+Player: It's beautiful.
+Mae: Isn't it? I love coming here in the mornings.
+Mae: The light hits the water just right, and it sparkles like diamonds.
+Mae: Well, I suppose I should let you get on with your day.
+Mae: Thanks for letting me show you around, {$player_name}!
+
+<<jump Goodbye>>
+===
+
+title: Goodbye
+tags:
+colorID: 5
+position: 1073,181
+---
+Mae: Well, it was nice meeting you, {$player_name}!
+Mae: I hope you enjoy your time in our town.
+
+<<if $has_toured_town is true>>
+    Mae: And thanks again for letting me show you around!
+<<endif>>
+
+Mae: See you around!
+
+// This ends the conversation
+<<stop>>
+===

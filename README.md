@@ -1,2 +1,1 @@
-# zed-yarn-spinner
-Yarn Spinner language server support for Zed
+# Yarn Spinner Extension for Zed
