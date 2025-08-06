@@ -10,7 +10,7 @@
 ; 1) Node body content - indent statements between body_start and body_end
 (node
   (body_start)
-  (statement)* @indent
+  ; (statement)* @indent
   (body_end) @end)
 
 ; 2) If statement blocks
