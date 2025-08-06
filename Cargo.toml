@@ -1,6 +1,6 @@
 [package]
 name = "zed-yarn-spinner"
-version = "0.0.1"
+version = "0.0.2"
 edition = "2024"
 description = "Yarn Spinner language support for Zed"
 repository = "https://github.com/yuna0x0/zed-yarn-spinner"
