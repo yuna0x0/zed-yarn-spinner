@@ -71,7 +71,7 @@ impl YarnSpinnerExtension {
         };
 
         let asset_name = format!(
-            "yarnspinner.languageserver-{}-{}-net9.0.zip",
+            "yarnspinner.languageserver-{}-{}.zip",
             platform_name, arch_name
         );
 
