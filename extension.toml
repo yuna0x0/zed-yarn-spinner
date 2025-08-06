@@ -1,6 +1,6 @@
 id = "yarn-spinner"
 name = "Yarn Spinner"
-version = "0.0.3"
+version = "0.0.4"
 schema_version = 1
 authors = ["yuna0x0 <yuna@yuna0x0.com>"]
 description = "Yarn Spinner language support for Zed"
@@ -10,6 +10,6 @@ repository = "https://github.com/yuna0x0/zed-yarn-spinner"
 repository = "https://github.com/yuna0x0/tree-sitter-yarn-spinner"
 rev = "e8cba93fe96f7a38f215a5e8b468b39102a6991d"
 
-[language_servers.yarn-spinner-language-server]
-name = "Yarn Spinner Language Server"
+[language_servers.yarn-spinner-lsp]
+name = "Yarn Spinner LSP"
 languages = ["Yarn Spinner"]

@@ -16,7 +16,7 @@ impl YarnSpinnerExtension {
         language_server_id: &LanguageServerId,
         worktree: &zed::Worktree,
     ) -> Result<YarnLanguageServerBinary> {
-        let binary_settings = LspSettings::for_worktree("yarn-spinner-language-server", worktree)
+        let binary_settings = LspSettings::for_worktree("yarn-spinner-lsp", worktree)
             .ok()
             .and_then(|lsp_settings| lsp_settings.binary);
         let binary_args = binary_settings
@@ -81,7 +81,7 @@ impl YarnSpinnerExtension {
             .find(|asset| asset.name == asset_name)
             .ok_or_else(|| format!("no asset found matching {:?}", asset_name))?;
 
-        let version_dir = format!("yarn-spinner-language-server-{}", release.version);
+        let version_dir = format!("yarn-spinner-lsp-{}", release.version);
         let binary_name = match platform {
             zed::Os::Windows => "YarnLanguageServer.exe",
             _ => "YarnLanguageServer",
