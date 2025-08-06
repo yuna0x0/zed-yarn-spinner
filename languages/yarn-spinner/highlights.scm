@@ -14,16 +14,26 @@
 
 ; Node headers
 (title_header
-  (header_title_kw) @keyword
-  (identifier) @title)
+  (title_kw) @keyword
+  title: (rest_of_line) @title)
 
 (when_header
-  (header_when_kw) @keyword
-  (expression) @condition)
+  (when_kw) @keyword
+  expr: (_) @expression)
 
 (header
   key: (identifier) @property
-  value: (rest_of_line) @text.literal)
+  value: (rest_of_line)? @text.literal)
+
+(header_delimiter) @punctuation.delimiter
+
+; Header when expression variants
+(header_when_expression
+  (always_kw) @keyword)
+
+(header_when_expression
+  (once_kw) @keyword
+  (if_kw)? @keyword)
 
 ; Body delimiters
 (body_start) @punctuation.special
@@ -34,27 +44,111 @@
 (line_group_arrow) @punctuation.special
 
 ; Commands
-(command_statement
-  (command_start) @punctuation.special
-  (command_end) @punctuation.special)
-
 (command_start) @punctuation.special
 (command_end) @punctuation.special
-(command_text_chunk) @preproc
+(command_text) @preproc
 
-; Command keywords
-(command_if_kw) @keyword
-(command_once_kw) @keyword
-(command_endif_kw) @keyword
-(command_elseif_kw) @keyword
-(command_else_kw) @keyword
-(command_set_kw) @keyword
-(command_call_kw) @keyword
-(command_declare_kw) @keyword
-(command_jump_kw) @keyword
-(command_detour_kw) @keyword
-(command_return_kw) @keyword
+; Keywords
+(if_kw) @keyword
+(elseif_kw) @keyword
+(else_kw) @keyword
+(endif_kw) @keyword
+(once_kw) @keyword
+(endonce_kw) @keyword
+(enum_kw) @keyword
+(endenum_kw) @keyword
+(case_kw) @keyword
+(set_kw) @keyword
+(call_kw) @keyword
+(declare_kw) @keyword
+(jump_kw) @keyword
+(detour_kw) @keyword
+(return_kw) @keyword
 (as_kw) @keyword
+(always_kw) @keyword
+
+; Expression keywords
+(not_kw) @keyword
+(and_kw) @keyword
+(or_kw) @keyword
+(xor_kw) @keyword
+(is_kw) @keyword
+(eq_kw) @keyword
+(neq_kw) @keyword
+(lt_kw) @keyword
+(gt_kw) @keyword
+(lte_kw) @keyword
+(gte_kw) @keyword
+
+; Boolean and null literals
+(true_kw) @boolean
+(false_kw) @boolean
+(null_kw) @constant
+
+; If statements
+(if_clause
+  (if_kw) @keyword)
+
+(else_if_clause
+  (elseif_kw) @keyword)
+
+(else_clause
+  (else_kw) @keyword)
+
+; Once statements
+(once_clause
+  (once_kw) @keyword
+  (if_kw)? @keyword)
+
+(once_alternate_clause
+  (else_kw) @keyword)
+
+; Enum statements
+(enum_statement
+  (enum_kw) @keyword
+  name: (identifier) @type)
+
+(enum_case_statement
+  (case_kw) @keyword
+  name: (identifier) @constant
+  operator: (_)? @operator
+  value: (_)? @expression)
+
+; Set statement
+(set_statement
+  (set_kw) @keyword
+  operator: (_) @operator)
+
+; Call statement
+(call_statement
+  (call_kw) @keyword)
+
+; Declare statement
+(declare_statement
+  (declare_kw) @keyword
+  (as_kw)? @keyword
+  type: (identifier)? @type)
+
+; Jump statements
+(jump_statement
+  (jump_kw) @keyword
+  destination: (identifier)? @function)
+
+(jump_statement
+  (detour_kw) @keyword
+  destination: (identifier)? @function)
+
+; Return statement
+(return_statement
+  (return_kw) @keyword)
+
+; Line condition
+(line_condition
+  (if_kw) @keyword)
+
+(line_condition
+  (once_kw) @keyword
+  (if_kw)? @keyword)
 
 ; Inline expressions
 (expression_start) @punctuation.bracket
@@ -62,8 +156,6 @@
 
 ; Text content
 (text) @text.literal
-(line_formatted_text) @text.literal
-(command_formatted_text) @text.literal
 
 ; Variables and identifiers
 (variable
@@ -76,19 +168,11 @@
 (number) @number
 (string) @string
 
-; Boolean and null literals
-(keyword_true) @boolean
-(keyword_false) @boolean
-(keyword_null) @constant
-
 ; Expressions and operators
 (binary_expression
   operator: (_) @operator)
 
 (unary_expression
-  operator: (_) @operator)
-
-(set_statement
   operator: (_) @operator)
 
 (paren_expression
@@ -106,15 +190,10 @@
   "." @punctuation.delimiter
   member: (identifier) @property)
 
-; Expression keywords
-(kw_not) @keyword
-(kw_and) @keyword
-(kw_or) @keyword
-(kw_xor) @keyword
-(kw_is) @keyword
-(kw_eq) @keyword
-(kw_neq) @keyword
-(kw_lt) @keyword
-(kw_gt) @keyword
-(kw_lte) @keyword
-(kw_gte) @keyword
+; Generic command statement highlighting
+(command_statement
+  (command_start) @punctuation.special
+  (command_end) @punctuation.special)
+
+; Newlines (for debugging/visualization)
+(newline) @punctuation.whitespace

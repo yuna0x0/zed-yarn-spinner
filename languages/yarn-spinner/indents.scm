@@ -1,36 +1,19 @@
 ; Indentation rules for Yarn Spinner (tree-sitter yarn_spinner)
 ;
-; These rules are conservative and aim to give sensible indentation for
-; common Yarn Spinner structures without relying on indentation-sensitive
-; parsing. They focus on:
+; These rules provide sensible indentation for Yarn Spinner structures
+; based on the current grammar, focusing on:
 ; - Indenting inside node bodies (between --- and ===)
-; - Indenting continuation lines for options/groups
-; - Indenting content within command delimiters and parenthesized expressions
+; - Indenting content within if/once statement blocks
+; - Indenting shortcut options and line groups
+; - Indenting expressions and function calls
 
-; 1) Indent between body delimiters: after --- until ===
-; Indent the content within nodes after the body_start marker
+; 1) Node body content - indent statements between body_start and body_end
 (node
   (body_start)
-  ; (statement)* @indent
+  (statement)* @indent
   (body_end) @end)
 
-; 2) Parentheses in expressions
-(paren_expression
-  "(" @indent
-  ")" @end)
-
-; Function calls behave similarly to parentheses
-(function_call
-  "(" @indent
-  ")" @end)
-
-; 3) Command blocks: provide visual indentation between << and >>
-; Many Yarn commands are single-line, but this helps when authors
-; format multi-line commands or long conditions.
-(command_start) @indent
-(command_end) @end
-
-; 4) If statement blocks
+; 2) If statement blocks
 (if_clause
   (command_end)
   (statement)* @indent)
@@ -43,29 +26,55 @@
   (command_end)
   (statement)* @indent)
 
-; 5) Shortcut options and line groups
-; Indent the content that follows an arrow as a continuation.
+; 3) Once statement blocks
+(once_clause
+  (command_end)
+  (statement)* @indent)
+
+(once_alternate_clause
+  (command_end)
+  (statement)* @indent)
+
+; 4) Enum case statements
+(enum_statement
+  (command_end)
+  (enum_case_statement)+ @indent
+  (command_start) @end)
+
+; 5) Shortcut options - indent content after the arrow
 (shortcut_option
   (shortcut_arrow)
   (line_statement)
-  (indent)? @indent
-  (dedent)? @end)
-
-(line_group_item
-  (line_group_arrow)
-  (line_statement)
-  (indent)? @indent
-  (dedent)? @end)
-
-; 6) General: if a line has an inline expression with braces,
-; do not change indentation globally, but ensure braces are treated as pairs.
-; Note: actual matching handled in brackets.scm; here we treat multiline
-; expressions as indent scopes if authors choose to line-break within them.
-(expression_start) @indent
-(expression_end) @end
-
-; 7) Handle indented statement blocks
-(statement
   (indent)
   (statement)* @indent
   (dedent) @end)
+
+; 6) Line group items - indent content after the arrow
+(line_group_item
+  (line_group_arrow)
+  (line_statement)
+  (indent)
+  (statement)* @indent
+  (dedent) @end)
+
+; 7) Parenthesized expressions
+(paren_expression
+  "(" @indent
+  ")" @end)
+
+; 8) Function calls
+(function_call
+  "(" @indent
+  ")" @end)
+
+; 9) Expression interpolation braces
+(expression_start) @indent
+(expression_end) @end
+
+; 10) Command blocks (for multi-line commands)
+(command_start) @indent
+(command_end) @end
+
+; 11) Handle explicit indent/dedent tokens from external scanner
+(indent) @indent
+(dedent) @end

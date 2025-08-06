@@ -25,6 +25,25 @@
   (command_end)
   (statement)* @function.inside)
 
+; Once statement blocks
+(once_statement) @function.around
+
+(once_clause
+  (command_end)
+  (statement)* @function.inside)
+
+(once_alternate_clause
+  (command_end)
+  (statement)* @function.inside)
+
+; Enum statement blocks
+(enum_statement) @function.around
+
+(enum_statement
+  (command_end)
+  (enum_case_statement)* @function.inside
+  (command_start))
+
 ; Shortcut option blocks
 (shortcut_option) @function.around
 
@@ -45,3 +64,27 @@
 
 ; Comments
 (comment) @comment.around
+
+; Function calls as function objects
+(function_call) @function.around
+
+(function_call
+  "("
+  (expression)* @function.inside
+  ")")
+
+; Parenthesized expressions
+(paren_expression) @function.around
+
+(paren_expression
+  "("
+  (expression) @function.inside
+  ")")
+
+; Command statements as function objects
+(command_statement) @function.around
+
+(command_statement
+  (command_start)
+  (_)* @function.inside
+  (command_end))

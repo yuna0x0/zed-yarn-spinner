@@ -14,11 +14,11 @@
 (expression_start) @open
 (expression_end) @close
 
+; Command delimiters << ... >>
+(command_start) @open
+(command_end) @close
+
 ; Double-quoted strings as paired quotes
 ; (string
 ;   "\"" @open
 ;   "\"" @close)
-
-; Command delimiters << ... >>
-(command_start) @open
-(command_end) @close
