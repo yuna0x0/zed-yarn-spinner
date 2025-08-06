@@ -159,7 +159,7 @@
 
 ; Variables and identifiers
 (variable
-  "$" @punctuation.delimiter
+  ; "$" @punctuation.delimiter
   (identifier) @variable)
 
 (identifier) @identifier
