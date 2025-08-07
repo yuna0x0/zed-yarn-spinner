@@ -10,6 +10,7 @@ position: 92,-396
 <<declare $world_distortion = 0>>
 <<declare $player_name = "Haruki">>
 <<declare $knows_about_glitch = false>>
+<<jump Club_Room>>
 ===
 
 title: Club_Room
