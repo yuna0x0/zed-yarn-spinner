@@ -4,7 +4,7 @@ A [Yarn Spinner](https://www.yarnspinner.dev) extension for [Zed](https://zed.de
 
 Tree-sitter: [yuna0x0/tree-sitter-yarn-spinner](https://github.com/yuna0x0/tree-sitter-yarn-spinner)
 
-⚠️ This extension and its underlying [yuna0x0/tree-sitter-yarn-spinner](https://github.com/yuna0x0/tree-sitter-yarn-spinner) parser are in early development and may contain incomplete features or bugs.
+⚠️ This extension and its underlying [tree-sitter-yarn-spinner](https://github.com/yuna0x0/tree-sitter-yarn-spinner) parser are in early development and may contain incomplete features or bugs.
 
 ## Development
 

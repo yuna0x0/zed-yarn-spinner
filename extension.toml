@@ -1,6 +1,6 @@
 id = "yarn-spinner"
 name = "Yarn Spinner"
-version = "0.0.7"
+version = "0.0.8"
 schema_version = 1
 authors = ["yuna0x0 <yuna@yuna0x0.com>"]
 description = "Yarn Spinner language support for Zed"
